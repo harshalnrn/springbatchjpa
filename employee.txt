@@ -1,0 +1,6 @@
+id,password,email,sex,age,title,salary
+1,masala,harshalnrn@gmail.com,M,23,Mr,35000
+2,masala1,harshalnrn1@gmail.com,M,23,Mr,35000
+3,masala2,harshalnrn2@gmail.com,M,23,Mr,35000
+4,masala3,harshalnrn3@gmail.com,M,23,Mr,35000
+5,masala4,harshalnrn4@gmail.com,M,23,Mr,35000
