@@ -43,7 +43,7 @@ public class EmployeeH2Config {
 
 
     @Bean(name = "userEntityManager")
-    @DependsOn({"userDataSource"})
+   // @DependsOn({"userDataSource"})
     public LocalContainerEntityManagerFactoryBean userEntityManager() {    //load entity manager and map it to entity bean
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();

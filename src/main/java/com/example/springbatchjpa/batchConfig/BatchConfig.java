@@ -52,7 +52,7 @@ public class BatchConfig {
     @Autowired
     private StepBuilderFactory stepBuilderFactory; //to build step
 
-    @PersistenceUnit(unitName = "userEntityManager")
+   @PersistenceUnit(name = "userEntityManager")
     EntityManagerFactory entityManagerFactory;
 
     @Autowired
@@ -75,10 +75,10 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step step1() throws FileNotFoundException {
+    public Step step1() throws FileNotFoundException,Exception {
         System.out.println("inside step method");
 
-            return stepBuilderFactory.get("step1").transactionManager(transactionManager).<Employee, Employee>chunk(1).reader(reader1()).writer(writer1()).build();/*reader(reader2()).writer(writer2()).build();*/
+            return stepBuilderFactory.get("step1").transactionManager(transactionManager).<Employee, Employee>chunk(2).reader(reader1()).writer(writer1()).reader(reader2()).writer(writer2()).build();
 
     }
 
@@ -131,12 +131,16 @@ public class BatchConfig {
         return writer;
     }
 
-    /*@Bean
-    public JpaPagingItemReader<Employee> reader() {
+    @Bean
+    public JpaPagingItemReader<Employee> reader2() throws  Exception {
         JpaPagingItemReader<Employee> reader=new JpaPagingItemReader();
         reader.setEntityManagerFactory(entityManagerFactory);
-        JpaQuer
-    }*/
+        reader.setQueryString("select e from Employee e");
+        reader.setPageSize(5);
+        reader.afterPropertiesSet();
+
+        return reader;
+    }
    /* @Bean
     public RepositoryItemWriter<Employee> writer1() {
         System.out.println("inside writer method");
@@ -162,7 +166,7 @@ public class BatchConfig {
 //note sorting manadatory for repositoryItemReader
         // }
 
-    /*@Bean
+    @Bean
     public FlatFileItemWriter<Employee> writer2() {
 
         FlatFileItemWriter<Employee> writer = new FlatFileItemWriter<Employee>();
@@ -178,5 +182,5 @@ public class BatchConfig {
 
         writer.setLineAggregator(lineAggregator);
         return writer;
-    }*/
+    }
     }
